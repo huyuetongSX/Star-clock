@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://www.netime.com.cn/datetime/ -->
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+
+	<body>
+		<div id="stars"></div>
+		<div id="stars2"></div>
+		<div id="stars3"></div>
+		<!--<div id='title'></div>-->
+		<div class="date" style="transform: rotateX(-2.85deg) rotateY(-0.72deg) translateY(-50%); perspective-origin: 50.6% 41.3897%;">
+			<div class="num one">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<div class="num zero">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<div class="point"></div>
+			<div class="num three">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<div class="num four">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<div class="point"></div>
+			<div class="num zero">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<div class="num nine">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+		<script src="jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var timeAnimate = null;
+
+			function getNum(obj) {
+				obj = Math.floor(obj);
+				switch(obj) {
+					case 0:
+						return "zero";
+						break;
+					case 1:
+						return "one";
+						break;
+					case 2:
+						return "two";
+						break;
+					case 3:
+						return "three";
+						break;
+					case 4:
+						return "four";
+						break;
+					case 5:
+						return "five";
+						break;
+					case 6:
+						return "six";
+						break;
+					case 7:
+						return "seven";
+						break;
+					case 8:
+						return "eight";
+						break;
+					case 9:
+						return "nine";
+						break;
+				}
+			}
+
+			function getTime() {
+				var time = new Date(),
+					hour = time.getHours(),
+					minutes = time.getMinutes(),
+					second = time.getSeconds();
+				$("#title").html("<span>" + hour + ":" + minutes + ":" + second + "</span>");
+				$(".num").removeClass("one two three four five six seven eight nine zero");
+				var num0 = hour / 10;
+				$(".num:eq(0)").addClass(getNum(num0));
+				var num1 = hour % 10;
+				$(".num:eq(1)").addClass(getNum(num1));
+				var num2 = minutes / 10;
+				$(".num:eq(2)").addClass(getNum(num2));
+				var num3 = minutes % 10;
+				$(".num:eq(3)").addClass(getNum(num3));
+				var num4 = second / 10;
+				$(".num:eq(4)").addClass(getNum(num4));
+				var num5 = second % 10;
+				$(".num:eq(5)").addClass(getNum(num5));
+			}
+			getTime();
+			timeAnimate = setInterval(getTime, 500);
+
+			var win_winth = window.innerWidth,
+				win_height = window.innerHeight;
+
+			window.onresize = function() {
+				win_winth = this.innerWidth;
+				win_height = this.innerHeight;
+			}
+
+			function mouseAnimate() {
+				var px, py, rx, ry, ox, oy;
+				$(document).mousemove(function(e) {
+					px = e.pageX;
+					py = e.pageY;
+					rx = px - (win_winth / 2);
+					ry = py - (win_height / 2);
+					//					ox = (1 - (px / win_winth))* 100;
+					oy = (1 - (py / win_height)) * 100;
+					$(".date").css({
+						"transform": "rotateX(" + -(ry / 20) + "deg) rotateY(" + -(rx / 50) + "deg) translateY(-50%)",
+						"perspective-origin": 50 + (rx / 60) + "% " + oy + "%"
+					});
+				})
+			}
+
+			mouseAnimate();
+		</script>
+
+	</body>
+
+</html>
